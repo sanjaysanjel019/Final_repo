@@ -13,7 +13,7 @@
         <input type="datetime-local" name="" id="dateTimeLocal1"/> <br/> -->
       <!-- </div> -->
 
-      <h4>HAS YOUR VEHICLE BEEN SERVICED IN LAST 30 DAYS ?</h4>
+      <h4>HAS YOUR VEHICLE BEEN SERVICED IN LAST 90 DAYS ?</h4>
       <div class="chk" style="margin-top: 30px;">
       <label class="container1">YES
       <input type="checkbox" checked="checked">
@@ -34,13 +34,13 @@
       </div>
     </div>
     <div class="col" id="column2" style="margin-right: -160px; background-color: #fff; margin-left: 0px;">
-      <div style="background-color: blue; color: #fff;padding: 25px;">
+      <div style="background-color: rgb(3, 3, 73); color: #fff;padding: 25px;">
       <h6 style="margin-top: 10px;margin-left:170px;">JOHN SMITH</h6>
       <p style="margin-top: 40px;margin-left:170px;">Hi, I'm John. I have 3 years of experience in Driving.</p>
     </div>
     <div>
-        <h3 style="margin-top:25px;border: 3px solid blue;padding-top: 8px;color:blue;font-weight: bold;">REVENUE COLLECTED</h3>
-        <div style="display:flex;background-color: blue; color: #fff;">
+        <h3 style="margin-top:25px;border: 3px solid rgb(3, 3, 73);padding-top: 8px;color:rgb(3, 3, 73);font-weight: bold;">REVENUE COLLECTED</h3>
+        <div style="display:flex;background-color: rgb(3, 3, 73); color: #fff;">
           <h3 style="margin-left:75px; margin-top:90px;">THIS RIDE</h3>
           <div>
           <input type="text" name="currency-field" id="currency-field" style="height:40px;margin-right:5px;width:50px;margin-top: 170px;margin-left:-120px;margin-bottom: 25px;" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$10">
@@ -48,11 +48,11 @@
           </div>
           <div>
           <h3 style="margin-left:350px; margin-top:90px;">TODAY</h3>
-          <button type="button" style="margin-left:365px; margin-top:55px; background-color: white; color:blue;border:none;padding: 12px 18px;margin-top: 25px;font-weight: bold;">$ 280</button>
+          <button type="button" style="margin-left:365px; margin-top:55px; background-color: white; color:rgb(3, 3, 73);border:none;padding: 12px 18px;margin-top: 25px;font-weight: bold;">$ 280</button>
           </div>
         </div>
         <div>
-        <h6 style="margin-left:230px;color:white;background-color:blue;display:inline-block;margin-top: 75px;">Write a review for the last Customer:</h6>
+        <h6 style="margin-left:230px;color:white;background-color:rgb(3, 3, 73);display:inline-block;margin-top: 75px;">Write a review for the last Customer:</h6>
         <textarea id="w3review" name="w3review" rows="4" cols="50" style="margin-left:180px;resize:none;">
           The customer was good to deal with. 
       </textarea>
@@ -77,7 +77,7 @@ export default {
 <style>
 
 #column1 {
-  background-color:blue;
+  background-color:rgb(3, 3, 73);
   height: 100vh;
   margin-top: 100px;
   
@@ -139,6 +139,8 @@ h2{
   cursor: pointer;
   height: 0;
   width: 0;
+  color: rgb(3, 3, 73);
+  
 }
 
 /* Create a custom checkbox */
@@ -148,18 +150,20 @@ h2{
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: #eee;
+  background-color: #fff;
   justify-content: center;
+  
 }
 
 /* On mouse-over, add a grey background color */
 .container1:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: white;
 }
 
 /* When the checkbox is checked, add a blue background */
 .container1 input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #4CAF50;
+  
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

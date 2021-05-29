@@ -1,48 +1,39 @@
 <template>
-   <div class="below-button-container">  <!-- Div for multiple buttons-->
-        <div class="bt-1"> 
-          <div style=" margin-top:185px;font-weight: bold;">EXPENSES TODAY</div>
-          <div style="font-weight: bold;">EXPENSES THIS MONTH</div>
-          <div style="font-weight: bold;">EXPENSES THIS YEAR</div>
-        </div>
-        <div class="bt-1"> 
-          <div style="font-weight: bold;">SERVICING</div>
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-          
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-        </div>
-        <div class="bt-1"> 
-          <div style="font-weight: bold;">OTHERS</div>
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-        </div>
-        <div class="bt-1"> 
-            <div style="font-weight: bold; color: white;">TOTAL</div>
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-          <div style= "background: transparent;">
-            <input type="text">
-          </div>
-          <div style= "background: transparent;">
-              <input type="text">
-          </div>
-          </div>
-     </div>
+  <table class="table table-bordered" style="margin-top:90px;table-layout:fixed;">
+  <caption>Request for PDF to see more </caption>
+  <thead style="background-color: #fff; color: #44bd32;text-align: center;border:2px solid #44bd32;">
+    <tr style="text-transform: uppercase;">
+      <th scope="col"></th>
+      <th scope="col">SERVICINGS</th>
+      <th scope="col">SALARY</th>
+      <th scope="col">TOTAL</th>
+    </tr>
+  </thead>
+  <tbody style="text-align:center;background-color:#44bd32; color: #fff;border:2px solid #44bd32;">
+    <tr>
+      
+      <th scope="row">TODAY'S EXPENSES</th>
+      <td>1141</td>
+      <td>Mark</td>
+      <td>Otto</td>
+    
+    </tr>
+    <tr>
+      <th scope="row">THIS MONTH'S EXPENSES</th>
+      <td>1323</td>
+      <td>Jacob</td>
+      <td>Thornton</td>
+
+    </tr>
+    <tr>
+      <th scope="row">THIS YEAR'S EXPENSES</th>
+      <td>1434</td>
+      <td>Larry</td>
+      <td>the Bird</td>
+      
+    </tr>
+  </tbody>
+</table>
 </template>
 
 <script>
@@ -52,37 +43,6 @@ export default {
 </script>
 
 <style>
-.bt-1{
-  display:flex;
-  flex-direction: column;
-  height:500px;
-}
-.bt-1 div{
-  padding:20px;
-  width: 220px;
-  margin:40px 0px;
-  /* border:2px solid #000000;  */
-  background-color: #44bd32;
-  color: white;
-  text-align: center;
-  display: inline-block;
-}
 
-input{
-  height: 35px;
-}
-
-/* .bt-3{
-  display:flex;
-  flex-direction: column;
-  height:500px;
-  align-items: center;
-}
-.bt-3 div{
-    padding:20px;
-    background-color: #44bd32;
-   margin:40px 0px;
-    overflow: hidden;
-} */
 
 </style>
