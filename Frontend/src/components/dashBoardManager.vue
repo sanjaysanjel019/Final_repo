@@ -3,7 +3,7 @@
  <div class="container-com">
    <div class="one"> <!--  DIV for whole <main> kind of section -->
      <div class="one-btn"> <!-- DIV for single four upper buttons -->
-       <span @click="clickedOnMenu($event)">Overall</span>
+       <span @click="clickedOnMenu($event)">OVERALL</span>
        <span @click="clickedOnMenu($event)">EMPLOYEES</span>
        <span @click="clickedOnMenu($event)">EXPENSES</span>
        <span @click="clickedOnMenu($event)">INCOME</span>
@@ -11,7 +11,8 @@
      
     <EXPENSES v-if="isEXPENSESClicked"/>
     <OVERALL v-if="isOVERALLClicked"/>
-   
+    <INCOME v-if="isINCOMEClicked"/>
+    <EMPLOYEES v-if="isEMPLOYEESClicked"/>
     </div>
    
    <div class="two">
@@ -32,18 +33,22 @@
 <script>
 import EXPENSES from "./expenses";
 import OVERALL from "./overall-dash";
+import INCOME from "./income.vue";
+import EMPLOYEES from "./employees.vue";
 // import EMPLOYEES from "./employees";
 export default {
   components:{
     EXPENSES,
-    OVERALL
-    // EMPLOYEES
+    OVERALL,
+    INCOME,
+    EMPLOYEES
+    
   },
   data(){
     return{
-      isOVERALLClicked:false,
+      isOVERALLClicked:true,
       isEMPLOYEESClicked:false,
-      isEXPENSESClicked:true,
+      isEXPENSESClicked:false,
       isINCOMEClicked:false,
     }
   },
@@ -52,7 +57,7 @@ export default {
       if(event.target.innerText == "OVERALL"){
               this.isOVERALLClicked = !this.isOVERALLClicked;
               this.isEMPLOYEESClicked=false;
-              this.isEXPERIENCESClicked=false;
+              this.isEXPENSESClicked=false;
               this.isINCOMEClicked=false;
       }else if(event.target.innerText == "EMPLOYEES"){
           this.isEMPLOYEESClicked = !this.isEMPLOYEESClicked;
@@ -63,7 +68,7 @@ export default {
         this.isEXPENSESClicked = !this.isEXPENSESClicked;
           this.isINCOMEClicked=false;
           this.isEMPLOYEESClicked=false;
-                    this.isOVERALLClicked = false;
+          this.isOVERALLClicked = false;
 
       }else if(event.target.innerText == "INCOME"){
         this.isINCOMEClicked = !this.isINCOMEClicked;
