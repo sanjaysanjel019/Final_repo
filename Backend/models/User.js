@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
 		required: [true, 'Password is required'],
 		minlength: 4,
 		select: false
-	}
+	},
+	
 });
 
 userSchema.pre('save', function(next) {

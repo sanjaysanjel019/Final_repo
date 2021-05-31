@@ -43,12 +43,12 @@
         <div style="display:flex;background-color: rgb(3, 3, 73); color: #fff;">
           <h3 style="margin-left:75px; margin-top:90px;">THIS RIDE</h3>
           <div>
-          <input type="text" name="currency-field" id="currency-field" style="height:40px;margin-right:5px;width:50px;margin-top: 170px;margin-left:-120px;margin-bottom: 25px;" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$10">
-          <button type="submit">Submit</button>
+          <input type="text" name="currency-field" id="currency-field" style="height:40px;margin-right:5px;width:50px;margin-top: 170px;margin-left:-120px;margin-bottom: 25px;"  v-model.lazy="thisRideIncome"  placeholder="$10">
+          <button type="submit" @click="updateRideIncome">Submit</button>
           </div>
           <div>
           <h3 style="margin-left:350px; margin-top:90px;">TODAY</h3>
-          <button type="button" style="margin-left:365px; margin-top:55px; background-color: white; color:rgb(3, 3, 73);border:none;padding: 12px 18px;margin-top: 25px;font-weight: bold;">$ 280</button>
+          <h4 type="button" style="margin-left:365px; margin-top:55px; background-color: white; color:rgb(3, 3, 73);border:none;padding: 12px 18px;margin-top: 25px;font-weight: bold;" >$ {{rideIncome}}</h4>
           </div>
         </div>
         <div>
@@ -70,7 +70,19 @@
 
 <script>
 export default {
-
+data(){
+  return{
+    thisRideIncome:'',
+    rideIncome:''
+  }
+},
+methods:{
+  updateRideIncome(){
+    
+    this.rideIncome = this.thisRideIncome;
+    console.log(this.rideIncome);
+  }
+  }
 }
 </script>
 
