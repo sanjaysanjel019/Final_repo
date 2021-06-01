@@ -1,156 +1,170 @@
 <template>
-<div>
-  <div class="container">
-    <div class="table-responsive">
-      <div class="table-wrapper">
-        <div class="table-title">
-          <div class="row">
-            <div class="col-xs-5"></div>
-            <div class="col-xs-7">
-              <a href="#" class="btn btn-primary"
-                ><i class="material-icons">&#xE147;</i>
-                <span @click="showAddNewUser">Add New User</span></a
-              >
-              <a href="#" class="btn btn-primary"
-                ><i class="material-icons">&#xE147;</i>
-                <span>Delete a User</span></a
-              >
-              <a href="#" class="btn btn-primary"
-                ><i class="material-icons">&#xE147;</i>
-                <span>Update a User</span></a
-              >
+  <div>
+    <div class="container">
+      <div class="table-responsive">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <div class="row">
+              <div class="col-xs-5"></div>
+              <div class="col-xs-7">
+                <a href="#" class="btn btn-primary"
+                  ><i class="material-icons">&#xE147;</i>
+                  <span @click="showAddNewUser">Add New User</span></a
+                >
+                <a href="#" class="btn btn-primary"
+                  ><i class="material-icons">&#xE147;</i>
+                  <span>Delete a User</span></a
+                >
+                <a href="#" class="btn btn-primary"
+                  ><i class="material-icons">&#xE147;</i>
+                  <span>Update a User</span></a
+                >
+              </div>
             </div>
           </div>
-        </div>
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Date Created</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="data in wholeEmployees" :key="data.id">
-              <td>{{data.id}}</td>
-              <td>
-                <a href="#"> {{data.name}}</a>
-              </td>
-              <td>04/10/2013</td>
-              <td>Driver</td>
-              <td><span class="status text-success">&bull;</span> Active</td>
-              <td>
-                <a
-                  href="#"
-                  class="settings"
-                  title="Settings"
-                  data-toggle="tooltip"
-                  ><i class="material-icons">&#xE8B8;</i></a
-                >
-                <a href="#" class="delete" title="Delete" data-toggle="tooltip"
-                  ><i class="material-icons"  @click="deleteDriverData($event)">&#xE5C9;</i></a
-                >
-              </td>
-            </tr>
-           
-          </tbody>
-        </table>
-        <div class="clearfix">
-          <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-          <ul class="pagination">
-            <li class="page-item disabled"><a href="#">Previous</a></li>
-            <li class="page-item"><a href="#" class="page-link">1</a></li>
-            <li class="page-item"><a href="#" class="page-link">2</a></li>
-            <li class="page-item active">
-              <a href="#" class="page-link">3</a>
-            </li>
-            <li class="page-item"><a href="#" class="page-link">4</a></li>
-            <li class="page-item"><a href="#" class="page-link">5</a></li>
-            <li class="page-item"><a href="#" class="page-link">Next</a></li>
-          </ul>
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Date Created</th>
+                <th>Role</th>
+                <!-- <th>Status</th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="data in wholeEmployees" :key="data.id">
+                <td>{{ data.id }}</td>
+                <td>
+                  <a href="#"> {{ data.name }}</a>
+                </td>
+                <td>04/10/2013</td>
+                <td>Driver</td>
+                <!-- <td><span class="status text-success">&bull;</span> Active</td> -->
+                <td>
+                  <a
+                    href="#"
+                    class="settings"
+                    title="Settings"
+                    data-toggle="tooltip"
+                    ><i class="material-icons">&#xE8B8;</i></a
+                  >
+                  <a
+                    href="#"
+                    class="delete"
+                    title="Delete"
+                    data-toggle="tooltip"
+                    ><i class="material-icons" @click="deleteDriverData($event)"
+                      >&#xE5C9;</i
+                    ></a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="clearfix">
+            <div class="hint-text">
+              Showing <b>5</b> out of <b>25</b> entries
+            </div>
+            <ul class="pagination">
+              <li class="page-item disabled"><a href="#">Previous</a></li>
+              <li class="page-item"><a href="#" class="page-link">1</a></li>
+              <li class="page-item"><a href="#" class="page-link">2</a></li>
+              <li class="page-item active">
+                <a href="#" class="page-link">3</a>
+              </li>
+              <li class="page-item"><a href="#" class="page-link">4</a></li>
+              <li class="page-item"><a href="#" class="page-link">5</a></li>
+              <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div v-if="isAddNewData" style="padding:20px; border:2px solid #000000">
-     <label for="user">Id: </label><br>
-    <input type="text" v-model="driverId" >
-    <br>
-    <label for="user">Name: </label><br>
-    <input type="text" v-model="driverName" >
-<br>
-    <label for="user">Vehicle Number: </label><br>
-    <input type="text" v-model="vehicleNumber" ><br>
-    <button class="user-add" @click="addNewDriver" >Add New User</button>
-    
+    <div v-if="isAddNewData" style="padding: 20px; border: 2px solid #000000">
+      <label for="user">Id: </label><br />
+      <input type="text" v-model="driverId" />
+      <br />
+      <label for="user">Name: </label><br />
+      <input type="text" v-model="driverName" />
+      <br />
+      <label for="user">Vehicle Number: </label><br />
+      <input type="text" v-model="vehicleNumber" /><br />
+      <button class="user-add" @click="addNewDriver">Add New User</button>
+    </div>
   </div>
-  
-  </div>
-  
 </template>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
-const axios = require('axios');
+const axios = require("axios");
 export default {
-data(){
-  return{
-    wholeEmployees:[],
-    isAddNewData:false,
-    driverId:'',
-    driverName:'',
-    vehicleNumber:''
-  }
-},
-methods:{
-  showAddNewUser(){
-    this.isAddNewData = !this.isAddNewData;
+  data() {
+    return {
+      wholeEmployees: [],
+      isAddNewData: false,
+      driverId: "",
+      driverName: "",
+      vehicleNumber: "",
+    };
   },
-  addNewDriver(){
-    // const data = {
-    //  id: this.driverId,
-    //   name:this.driverName, 
-    //   vn:this.vehicleNumber
-    // }
-    axios.post('http://127.0.0.1:3000/user/driver/',{
-       id: this.driverId,
-      name:this.driverName, 
-      vehicleNumber:this.vehicleNumber
-
-    }).then(res=>{
-      console.log("Data added is:",res)
-      alert("Data added")
-    })
+  methods: {
+    showAddNewUser() {
+      this.isAddNewData = !this.isAddNewData;
+    },
+    addNewDriver() {
+      // const data = {
+      //  id: this.driverId,
+      //   name:this.driverName,
+      //   vn:this.vehicleNumber
+      // }
+      axios
+        .post("http://127.0.0.1:3000/user/driver/", {
+          id: this.driverId,
+          name: this.driverName,
+          vehicleNumber: this.vehicleNumber,
+        })
+        .then((res) => {
+          console.log("Data added is:", res);
+          alert("Data added");
+        });
+    },
+    async deleteDriverData($event) {
+      console.log(
+        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+          .childNodes[0].innerText
+      );
+      const toDelelteId =
+        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+          .childNodes[0].innerText;
+      await axios
+        .delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`, {
+          id: toDelelteId,
+        })
+        .then(
+          (res) => {
+            console.log(res);
+          },
+          (error) => {
+            console.log("Error is==>", error);
+          }
+        );
+    },
   },
-  async deleteDriverData($event){
-    console.log($event.explicitOriginalTarget.parentNode.parentNode.parentNode.childNodes[0].innerText);
-    const toDelelteId = $event.explicitOriginalTarget.parentNode.parentNode.parentNode.childNodes[0].innerText;
-    await axios.delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`,{
-      id:toDelelteId
-
-    }).then((res)=>{
-      console.log(res)
-    },(error)=>{
-      console.log("Error is==>",error)
-    })
-  }
+  async mounted() {
+    const wholeData = await axios.get("http://127.0.0.1:3000/user/driver");
+    this.wholeEmployees = wholeData.data.data.drivers;
   },
-async mounted(){
-  const wholeData = await axios.get('http://127.0.0.1:3000/user/driver');
-  this.wholeEmployees = wholeData.data.data.drivers;
-},
 };
 </script>
 
 
 <style scoped>
-@import "https://fonts.googleapis.com/css?family=Roboto|Varela+Round"; 
+@import "https://fonts.googleapis.com/css?family=Roboto|Varela+Round";
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
@@ -317,25 +331,25 @@ table.table .avatar {
   margin-top: 10px;
   font-size: 13px;
 }
-input[type=text] {
+input[type="text"] {
   padding: 10px;
-    margin:10px 5px; 
-    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-      border-radius:10px;
+  margin: 10px 5px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
 }
 
-  .user-add{
-  appearance:none;
-  -webkit-appearance:none;
-  padding:10px;
-  border:none;
-  background-color:#44bd32;
-  color:#fff;
-  font-weight:600;
-  border-radius:5px;
+.user-add {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px;
+  border: none;
+  background-color: #44bd32;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 5px;
   opacity: 1;
-  }
-  .user-add:hover{
-    opacity: 0.8;
-  }
+}
+.user-add:hover {
+  opacity: 0.8;
+}
 </style>
