@@ -11,7 +11,21 @@ const userSchema = new mongoose.Schema({
 		minlength: 4,
 		select: false
 	},
-	
+	id: {
+		type: String
+	},
+	name: {
+		type: String,
+		required: [true, 'Driver Name is required']
+	},
+	vehicleNumber: {
+		type: String
+	},
+	role: {
+		type: String,
+		enum: ['employee', 'manager', 'driver'],
+		default: 'driver'
+	}
 });
 
 userSchema.pre('save', function(next) {

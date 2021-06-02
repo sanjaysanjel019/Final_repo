@@ -70,6 +70,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   data() {
     return {
@@ -84,6 +85,11 @@ export default {
       yearlySalary: 0,
       yearlyTotal: 0,
     };
+  },
+  async mounted() {
+    const expensnes = await axios.get("http://127.0.0.1:3000/user/expenses");
+    console.log("Expensnes are===>", expensnes.data.data[0].monthlyExpenses);
+    this.monthlyTotal = expensnes.data.data[0].monthlyExpenses;
   },
   methods: {
     showExpenseDiv() {

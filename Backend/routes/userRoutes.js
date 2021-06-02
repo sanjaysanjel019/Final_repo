@@ -1,12 +1,13 @@
 const express = require('express');
 const userController = require('../controller/user');
-const driverController = require('../controller/driver');
+const expenseController = require('../controller/expesnes');
 
 const router = express.Router();
 
 router.route('/').get(userController.displayUsers).post(userController.addUser);
-router.route('/driver').get(driverController.displayDrivers).post(driverController.addDriver);
-router.route('/driver/:id').put(driverController.updateDriver).delete(driverController.deleteDriver);
+router.route('/:id').put(userController.updateUser).delete(userController.deleteUser);
 router.route('/login').post(userController.login);
+router.route('/driver').get(userController.findDrivers);
+router.route('/expenses').get(expenseController.getExpenses).patch(expenseController.updateExpenses);
 
 module.exports = router;

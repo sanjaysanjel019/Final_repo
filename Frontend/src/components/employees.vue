@@ -40,7 +40,7 @@
                   <a href="#"> {{ data.name }}</a>
                 </td>
                 <td>04/10/2013</td>
-                <td>Driver</td>
+                <td>{{ data.role }}</td>
                 <!-- <td><span class="status text-success">&bull;</span> Active</td> -->
                 <td>
                   <a
@@ -92,6 +92,12 @@
       <br />
       <label for="user">Vehicle Number: </label><br />
       <input type="text" v-model="vehicleNumber" /><br />
+
+      <label for="user">Role: </label><br />
+      <select id="user-role" v-model="userRole">
+        <option v-for="x in roles" :key="x.id">{{ x }}</option>
+      </select>
+
       <button class="user-add" @click="addNewDriver">Add New User</button>
     </div>
   </div>
@@ -110,6 +116,8 @@ export default {
       driverId: "",
       driverName: "",
       vehicleNumber: "",
+      roles: [],
+      userRole: "",
     };
   },
   methods: {
@@ -117,13 +125,8 @@ export default {
       this.isAddNewData = !this.isAddNewData;
     },
     addNewDriver() {
-      // const data = {
-      //  id: this.driverId,
-      //   name:this.driverName,
-      //   vn:this.vehicleNumber
-      // }
       axios
-        .post("http://127.0.0.1:3000/user/driver/", {
+        .post("http://127.0.0.1:3000/user", {
           id: this.driverId,
           name: this.driverName,
           vehicleNumber: this.vehicleNumber,
@@ -133,34 +136,46 @@ export default {
           alert("Data added");
         });
     },
-    async deleteDriverData($event) {
-      console.log(
-        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
-          .childNodes[0].innerText
-      );
-      const toDelelteId =
-        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
-          .childNodes[0].innerText;
-      await axios
-        .delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`, {
-          id: toDelelteId,
-        })
-        .then(
-          (res) => {
-            console.log(res);
-          },
-          (error) => {
-            console.log("Error is==>", error);
-          }
-        );
-    },
+    // async deleteDriverData($event) {
+    //   console.log(
+    //     $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+    //       .childNodes[0].innerText
+    //   );
+    //   const toDelelteId =
+    //     $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+    //       .childNodes[0].innerText;
+    //   await axios
+    //     .delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`, {
+    //       id: toDelelteId,
+    //     })
+    //     .then(
+    //       (res) => {
+    //         console.log(res);
+    //       },
+    //       (error) => {
+    //         console.log("Error is==>", error);
+    //       }
+    //     );
+    // },
   },
   async mounted() {
-    const wholeData = await axios.get("http://127.0.0.1:3000/user/driver");
-    this.wholeEmployees = wholeData.data.data.drivers;
+    const wholeData = await axios.get("http://127.0.0.1:3000/user/");
+    this.wholeEmployees = wholeData.data.data.users;
+    const nextData = [];
+    let i = 0;
+    console.log("Data is==>", this.wholeEmployees);
+    this.wholeEmployees.forEach((index, i) => {
+      nextData[i] = index.role;
+      i++;
+    });
+
+    function gtDuplicateValues(data) {
+      return data.filter((value, index) => data.indexOf(value) !== index);
+    }
+    this.roles = gtDuplicateValues(nextData);
   },
 };
-</script>
+</script> 
 
 
 <style scoped>
