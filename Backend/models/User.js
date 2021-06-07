@@ -35,7 +35,6 @@ userSchema.pre('save', function(next) {
 			console.log('Password could not be hashed');
 		}
 		user.password = hashedPassword;
-		console.log('Hashed passwrd is ==>', user.password);
 		next();
 	});
 });

@@ -11,13 +11,13 @@
                   ><i class="material-icons">&#xE147;</i>
                   <span @click="showAddNewUser">Add New User</span></a
                 >
-                <a href="#" class="btn btn-primary"
+                <!-- <a href="#" class="btn btn-primary"
                   ><i class="material-icons">&#xE147;</i>
                   <span>Delete a User</span></a
-                >
+                > -->
                 <a href="#" class="btn btn-primary"
                   ><i class="material-icons">&#xE147;</i>
-                  <span>Update a User</span></a
+                  <span @click="showUpdateUser">Update a User</span></a
                 >
               </div>
             </div>
@@ -83,6 +83,7 @@
       </div>
     </div>
 
+    <!-- Add new user starts -->
     <div v-if="isAddNewData" style="padding: 20px; border: 2px solid #000000">
       <label for="user">Id: </label><br />
       <input type="text" v-model="driverId" />
@@ -93,6 +94,16 @@
       <label for="user">Vehicle Number: </label><br />
       <input type="text" v-model="vehicleNumber" /><br />
 
+      <br />
+      <label for="user">Username: </label><br />
+      <input type="text" v-model="username" /><br />
+
+      <br />
+      <label for="user">Password: </label><br />
+      <input type="password" v-model="password" /><br />
+
+      <br />
+
       <label for="user">Role: </label><br />
       <select id="user-role" v-model="userRole">
         <option v-for="x in roles" :key="x.id">{{ x }}</option>
@@ -100,6 +111,39 @@
 
       <button class="user-add" @click="addNewDriver">Add New User</button>
     </div>
+    <!-- Add new user ends-->
+
+    <!-- Update users starts -->
+    <div v-if="isUpdateData" style="padding: 20px; border: 2px solid #000000">
+      <br />
+      <label for="user">Enter username of user you want to update: </label
+      ><br />
+      <input type="text" v-model="username" /><br />
+
+      <br />
+      <label for="user">Enter user ID </label><br />
+      <input type="text" v-model="uid" /><br />
+
+      <label for="user">Vehicle Number: </label><br />
+      <input type="text" v-model="vehicleNumber" /><br />
+
+      <br />
+      <label for="user">Name: </label><br />
+      <input type="text" v-model="driverName" />
+      <br />
+
+      <br />
+
+      <label for="user">Role: </label><br />
+      <select id="user-role" v-model="userRole">
+        <option v-for="x in roles" :key="x.id">{{ x }}</option>
+      </select>
+
+      <button class="user-add" @click="updateUserDetails">
+        Update User Data
+      </button>
+    </div>
+    <!-- Update users starts -->
   </div>
 </template>
 
@@ -113,16 +157,57 @@ export default {
     return {
       wholeEmployees: [],
       isAddNewData: false,
+      isUpdateData: false,
       driverId: "",
       driverName: "",
+      username: "",
+      password: "",
       vehicleNumber: "",
       roles: [],
       userRole: "",
+      uid: null,
+      toUpdateUser: "",
     };
   },
   methods: {
     showAddNewUser() {
       this.isAddNewData = !this.isAddNewData;
+    },
+    showUpdateUser() {
+      this.isUpdateData = !this.isUpdateData;
+    },
+    async updateUserDetails() {
+      await axios
+        .post("http://127.0.0.1:3000/user/current", {
+          username: this.username,
+        })
+        .then((resp) => {
+          this.toUpdateUser = JSON.parse(JSON.stringify(resp.data.data));
+        });
+      this.uid = this.toUpdateUser.user.id;
+
+      if (this.vehicleNumber == "") {
+        this.vehicleNumber = this.toUpdateUser.user.vehicleNumber;
+      }
+      if (this.driverName == "") {
+        this.driverName = this.toUpdateUser.user.name;
+      }
+
+      if (this.role == "") {
+        this.userRole = this.toUpdateUser.user.role;
+      }
+
+      axios
+        .put(`http://127.0.0.1:3000/user/${this.uid}`, {
+          id: this.uid,
+          name: this.name,
+          vehicleNumber: this.vehicleNumber,
+          role: this.userRole,
+          name: this.driverName,
+        })
+        .then((res) => {
+          alert("User Updated");
+        });
     },
     addNewDriver() {
       axios
@@ -130,40 +215,41 @@ export default {
           id: this.driverId,
           name: this.driverName,
           vehicleNumber: this.vehicleNumber,
+          username: this.username,
+          password: this.password,
+          role: this.userRole,
         })
         .then((res) => {
-          console.log("Data added is:", res);
           alert("Data added");
         });
     },
-    // async deleteDriverData($event) {
-    //   console.log(
-    //     $event.explicitOriginalTarget.parentNode.parentNode.parentNode
-    //       .childNodes[0].innerText
-    //   );
-    //   const toDelelteId =
-    //     $event.explicitOriginalTarget.parentNode.parentNode.parentNode
-    //       .childNodes[0].innerText;
-    //   await axios
-    //     .delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`, {
-    //       id: toDelelteId,
-    //     })
-    //     .then(
-    //       (res) => {
-    //         console.log(res);
-    //       },
-    //       (error) => {
-    //         console.log("Error is==>", error);
-    //       }
-    //     );
-    // },
+    async deleteDriverData($event) {
+      console.log(
+        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+          .childNodes[0].innerText
+      );
+      const toDelelteId =
+        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+          .childNodes[0].innerText;
+      await axios
+        .delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`, {
+          id: toDelelteId,
+        })
+        .then(
+          (res) => {
+            console.log(res);
+          },
+          (error) => {
+            console.log("Error is==>", error);
+          }
+        );
+    },
   },
   async mounted() {
     const wholeData = await axios.get("http://127.0.0.1:3000/user/");
     this.wholeEmployees = wholeData.data.data.users;
     const nextData = [];
     let i = 0;
-    console.log("Data is==>", this.wholeEmployees);
     this.wholeEmployees.forEach((index, i) => {
       nextData[i] = index.role;
       i++;
@@ -346,7 +432,8 @@ table.table .avatar {
   margin-top: 10px;
   font-size: 13px;
 }
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   padding: 10px;
   margin: 10px 5px;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);

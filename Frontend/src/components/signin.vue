@@ -22,7 +22,7 @@
 
         <button
           id="textstyles"
-          @click="showAlerBtn"
+          @click="loginUser"
           class="btn btn-dark btn-lg btn-block"
         >
           SIGN IN AS DRIVER
@@ -36,6 +36,7 @@
         <p class="forgot-password text-right mt-2 mb-4" id="forgottext">
           <router-link to="/forgot-password" id="forgottext"
             >Forgot password ?</router-link
+          >
           >
         </p>
       </form>
@@ -65,7 +66,7 @@ export default {
     };
   },
   methods: {
-    async showAlerBtn() {
+    async loginUser() {
       this.userData = await axios
         .post(this.url, {
           username: this.username,
@@ -73,12 +74,18 @@ export default {
         })
         .then(
           (data) => {
-            console.log("Data is==>", data);
-            this.errd = data.data.errcd;
-            if (this.errd === 200) {
+            if (
+              data.data.data.user.role == "manager" ||
+              data.data.data.user.role == "employee"
+            ) {
+              alert("Please sign in as Manager");
+              this.isLoggedIn = false;
+              return 0;
+            }
+            if (data.data.statusCode == 200) {
               this.isLoggedIn = true;
-              this.fullName = data.data.user.name;
-              console.log("Monkey Data==>", data.data.user.name);
+              this.isAlertBtn = true;
+              this.fullName = data.data.data.user.username;
             }
 
             if (this.isLoggedIn) {
@@ -89,10 +96,6 @@ export default {
             console.log("Errors are==>", error);
           }
         );
-
-      //.catch(error){
-      //     console.log("Error")
-      // }
     },
     redirectHome() {
       this.$router.push({

@@ -34,6 +34,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import EXPENSES from "./expenses";
 import OVERALL from "./overall-dash";
 import INCOME from "./income.vue";
@@ -55,9 +56,11 @@ export default {
       currentUser: null,
     };
   },
-  mounted() {
+  async mounted() {
     this.currentUser = this.$route.params.userId;
-    console.log("Current Uer is====>", this.currentUser);
+    await axios.post("http://127.0.0.1:3000/user/current", {
+      username: this.$route.params.userId,
+    });
   },
   methods: {
     clickedOnMenu(event) {

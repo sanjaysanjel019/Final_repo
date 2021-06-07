@@ -22,15 +22,14 @@
 
         <button
           id="textstyles"
-          @click="showAlerBtn"
+          @click="logInUser"
           class="btn btn-dark btn-lg btn-block"
         >
           SIGN IN AS MANAGER
         </button>
 
-        <h3 v-if="errd === 400">PLease Enter Correct Username and Password</h3>
-
-        <h3 v-else-if="errd === 200">Please Wait, Logging in ...</h3>
+        <h3 v-if="errd">{{ errMsg }}</h3>
+        <h3 v-if="success">Please Wait, Logging in ...</h3>
         <p class="forgot-password text-right mt-2 mb-4">
           <router-link to="/forgot-password" style="color: #fff"
             >Forgot password ?</router-link
@@ -54,12 +53,14 @@ export default {
       userData: null,
       url: "http://127.0.0.1:3000/user/login",
       errd: null,
+      success: null,
       isLoggedIn: false,
       fullName: null,
+      errMsg: null,
     };
   },
   methods: {
-    async showAlerBtn() {
+    async logInUser() {
       this.userData = await axios
         .post(this.url, {
           username: this.username,
@@ -67,11 +68,18 @@ export default {
         })
         .then(
           (data) => {
-            console.log("Data is==>", data);
-            this.errd = data.data.errcd;
-            if (this.errd === 200) {
-              this.isLoggedIn = true;
-              this.fullName = data.data.user.name;
+            if (data.data.statusCode == 200) {
+              if (data.data.data.user.role == "driver") {
+                this.isLoggedIn = false;
+                alert("You are not authorised to login as a manager");
+              } else {
+                this.isLoggedIn = true;
+                this.success = data.data.statusCode;
+                this.fullName = data.data.data.user.username;
+              }
+            } else if (data.data.err.statusCode) {
+              this.errd = data.data.err.statusCode;
+              this.errMsg = data.data.err.message;
             }
 
             if (this.isLoggedIn) {

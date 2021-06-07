@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col" id="column1" style="margin-left: -170px">
-          <h2>WELCOME {{ currentUser }}</h2>
+          <h2>WELCOME {{ currentUser.username }}</h2>
           <br />
           <button class="button" style="margin-top: 40px; margin-right: 70px">
             PICK-UP TIME
@@ -59,10 +59,10 @@
             style="background-color: rgb(3, 3, 73); color: #fff; padding: 25px"
           >
             <h6 style="margin-top: 10px; margin-left: 170px">
-              {{ currentUser }}
+              {{ currentUser.name }}
             </h6>
             <p style="margin-top: 40px; margin-left: 170px">
-              Hi, I'm {{ currentUser }}. I have 3 years of experience in
+              Hi, I'm {{ currentUser.name }}. I have 3 years of experience in
               Driving.
             </p>
           </div>
@@ -98,6 +98,7 @@
                     margin-top: 170px;
                     margin-left: -120px;
                     margin-bottom: 25px;
+                    color: #000000;
                   "
                   v-model.lazy="thisRideIncome"
                   placeholder="$10"
@@ -157,6 +158,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   data() {
     return {
@@ -165,13 +167,23 @@ export default {
       currentUser: null,
     };
   },
-  mounted() {
-    this.currentUser = this.$route.params.userId;
+  async mounted() {
+    await axios
+      .post("http://127.0.0.1:3000/user/current", {
+        username: this.$route.params.userId,
+      })
+      .then((resp) => {
+        this.currentUser = resp.data.data.user;
+      });
   },
   methods: {
-    updateRideIncome() {
+    async updateRideIncome() {
       this.rideIncome = this.thisRideIncome;
-      console.log(this.rideIncome);
+      await axios.put("http://127.0.0.1:3000/user/income", {
+        todayIncome: this.thisRideIncome,
+        totalIncome: this.rideIncome,
+        user: this.currentUser._id,
+      });
     },
   },
 };
@@ -294,5 +306,15 @@ h4 {
   border: 3px solid white;
   padding: 5px;
   margin-top: 120px;
+}
+button {
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #4caf50;
+  opacity: 1;
+}
+button:hover {
+  opacity: 0.9;
 }
 </style>

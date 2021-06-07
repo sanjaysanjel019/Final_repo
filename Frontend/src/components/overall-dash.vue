@@ -46,7 +46,7 @@ export default {
   },
   async created() {
     const usersData = await axios.get("http://127.0.0.1:3000/user/driver");
-    console.log("Common man data===>", usersData.data.data.driversOnly);
+    console.log("OV==>", usersData);
     this.users = usersData.data.data.driversOnly;
   },
 };
