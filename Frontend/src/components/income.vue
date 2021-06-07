@@ -55,6 +55,7 @@ export default {
 
     await axios.get("http://127.0.0.1:3000/user/income").then((respon) => {
       this.users = JSON.parse(JSON.stringify(respon.data.data));
+      console.log("His suers===>", this.users);
     });
   },
 };

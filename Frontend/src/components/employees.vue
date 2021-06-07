@@ -223,27 +223,27 @@ export default {
           alert("Data added");
         });
     },
-    async deleteDriverData($event) {
-      console.log(
-        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
-          .childNodes[0].innerText
-      );
-      const toDelelteId =
-        $event.explicitOriginalTarget.parentNode.parentNode.parentNode
-          .childNodes[0].innerText;
-      await axios
-        .delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`, {
-          id: toDelelteId,
-        })
-        .then(
-          (res) => {
-            console.log(res);
-          },
-          (error) => {
-            console.log("Error is==>", error);
-          }
-        );
-    },
+    // async deleteDriverData($event) {
+    //   console.log(
+    //     $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+    //       .childNodes[0].innerText
+    //   );
+    //   const toDelelteId =
+    //     $event.explicitOriginalTarget.parentNode.parentNode.parentNode
+    //       .childNodes[0].innerText;
+    //   await axios
+    //     .delete(`http://127.0.0.1:3000/user/driver/${toDelelteId}`, {
+    //       id: toDelelteId,
+    //     })
+    //     .then(
+    //       (res) => {
+    //         console.log(res);
+    //       },
+    //       (error) => {
+    //         console.log("Error is==>", error);
+    //       }
+    //     );
+    // },
   },
   async mounted() {
     const wholeData = await axios.get("http://127.0.0.1:3000/user/");

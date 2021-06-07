@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     async loginUser() {
-      this.userData = await axios
+      await axios
         .post(this.url, {
           username: this.username,
           password: this.password,
